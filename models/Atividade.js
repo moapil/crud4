@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize')
 const db = require('../db/conn')
 
-const Atividade = db.define('produto', {
+const Atividade = db.define('atividade', {
     atividade: {
         type: DataTypes.STRING(40)
     }
