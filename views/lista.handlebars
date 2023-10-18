@@ -1,0 +1,18 @@
+<h1>Lista de atividades</h1>
+<hr>
+
+<table>
+    <thead>
+        <th>Código</th>
+        <th>Atividade</th>
+    </thead>
+{{#each valores}}
+    <tbody>
+        <tr>
+            <td>{{this.id}}</td>
+            <td>{{this.atividade}}</td>
+        </tr>
+    </tbody>
+{{/each}}
+</table>
+<hr>

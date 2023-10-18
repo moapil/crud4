@@ -1,0 +1,53 @@
+body{
+    background-color: pink;
+    font-size: 1.1rem;
+    color: white;
+}
+
+h1, p, label{
+    color: black;
+}
+
+nav{
+    text-align: center;
+}
+nav a{
+    text-decoration: none;
+    color: black;
+    font-size: 1.25rem;
+}
+nav a:hover{
+    transition: 0.5s;
+    background-color: palevioletred;
+    cursor: pointer;
+}
+nav a:visited{
+    color: black;
+}
+h1{
+    font-size: 2rem;
+}
+table,th,td{
+    border-collapse: collapse;
+    border: 2px solid white;
+}
+th{
+    color: palevioletred;
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding: 0px 4px;
+}
+td{
+    color: black;
+    text-align: center;
+    font-size: 1.1rem;
+    padding: 0px 4px;
+}
+button,input{
+    background-color: white;
+    color:grey;
+}
+
+hr{
+    color: palevioletred;
+}

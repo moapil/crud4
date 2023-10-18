@@ -51,11 +51,12 @@ app.post('/login', async (req,res)=>{
     }else if(pesq.email == email && pesq.senha == senha){
         console.log('user found')
         log = true
-        res.render('home', {log})
+        res.render('home', {log, nome:pesq.nome})
     }else{
         res.status(200).redirect('/')
         console.log('user not found')
     }
+
 })
 
 app.get('/login', (req,res)=>{
@@ -77,17 +78,46 @@ app.post('/atualiza', (req,res)=>{
     let msg = 'Não foi possível cadastrar'
     let msg2 = 'Dados cadastrados!'
     if((typeof atividade ==='string')){
-        atividade.create({atividade})
+        Atividade.create({atividade})
         console.log(msg2)
         res.render('atualiza', {msg2})
     }else{
         console.log(msg)
-        res.render('atualiza', {msg})
+        res.render('atualiza', {msg}, {log})
     }
 })
 
 app.get('/atualiza', (req,res)=>{
-    res.render('atualiza')
+    res.render('atualiza', {log})
+})
+
+//deleta
+
+app.post('/deleta', async (req,res)=>{
+    const id = Number(req.body.id)
+    let msg = 'atividade não encontrada'
+    let msg2 = 'atividade excluída'
+    const idAtiv = await Atividade.findOne({raw:true, where: {id:id}})
+    console.log(idAtiv)
+    console.log(idAtiv.id)
+    if(idAtiv != null){
+        Atividade.destroy({where: {id:id}})
+        res.render('deleta', {log, msg2})
+    }else{
+        res.render('deleta', {log, msg})
+    }
+})
+
+app.get('/deleta', (req,res)=>{
+    res.render('deleta', {log})
+})
+
+//lista
+
+app.get('/lista', async (req,res)=>{
+    const dados = await Atividade.findAll({raw:true})
+    console.log(dados)
+    res.render('lista', {log, valores: dados})
 })
 
 //----------
