@@ -70,9 +70,9 @@ app.get('/logout', (req,res)=>{
     res.render('home', {log})
 })
 
-//atualiza
+//cadastra
 
-app.post('/atualiza', (req,res)=>{
+app.post('/cadasrea', (req,res)=>{
     const atividade = req.body.atividade
     console.log(atividade)
     let msg = 'Não foi possível cadastrar'
@@ -80,11 +80,43 @@ app.post('/atualiza', (req,res)=>{
     if((typeof atividade ==='string')){
         Atividade.create({atividade})
         console.log(msg2)
-        res.render('atualiza', {msg2})
+        res.render('cadasrea', {msg2})
     }else{
         console.log(msg)
-        res.render('atualiza', {msg}, {log})
+        res.render('cadastra', {msg}, {log})
     }
+})
+
+app.get('/cadastra', (req,res)=>{
+    res.render('cadastra', {log})
+})
+
+//atualiza
+
+app.post('/atualiza', async (req,res)=>{
+    const atividade = req.body.atividade
+    const atividade2 = req.body.atividade2
+    console.log(atividade,atividade2)
+    let msg = 'Tipo de dados inválidos, digite novamente'
+    let msg2 = 'Dados cadastrados!'
+    let msg3 = 'Produto não encontrado na base de dados para atualizar'
+
+    const dado_atividade = await Atividade.findOne({raw:true, where: {atividade:atividade}})
+    console.log(dado_atividade)
+
+    if(dado_atividade != null){
+        const dados = {
+            atividade: atividade2,
+        }
+        await Atividade.update(dados, {where: {atividade:atividade}})
+            console.log(msg2)
+            res.render('atualiza', {msg2, log})
+    }else{
+        console.log(msg)
+        res.render('atualiza', {msg, log})
+    }
+    
+    // res.redirect('/atualiza')
 })
 
 app.get('/atualiza', (req,res)=>{
